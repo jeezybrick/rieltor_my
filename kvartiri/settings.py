@@ -40,6 +40,9 @@ INSTALLED_APPS = (
 
     # my apps
     'init',
+
+     # 3-p apps
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (

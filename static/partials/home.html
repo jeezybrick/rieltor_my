@@ -1,0 +1,196 @@
+<div class="formSearch" style="background-color:#FCFCFC;">
+    <div style="padding-top:20px;padding-left:25px;padding-right:25px;">
+        <div class="row">
+            <div class="col-lg-2 col-md-7 col-sm-7 col-xs-12">
+                <p>Тип недвижимости</p>
+                <md-input-container>
+                    <label>Квартира</label>
+                    <md-select ng-model="ctrl.userState">
+                        <md-option ng-repeat="apartment in apartments">
+                            [[ apartment ]]
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <div class="checkbox">
+                    <label>
+                        <md-checkbox ng-model="is_image">
+                            с фото
+                        </md-checkbox>
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
+                <p>Комнат</p>
+
+                <div layout="row" layout-wrap flex>
+                    <div ng-repeat="item in items">
+                        <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
+                            [[ item ]]
+                        </md-checkbox>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-7 col-sm-7 col-xs-12">
+                <p>Район</p>
+                <md-input-container>
+                    <label>----------</label>
+                    <md-select ng-model="area">
+                        <md-option ng-repeat="area in areas">
+                            [[ area ]]
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12" style="padding:0 10px;">
+                <p>Цена</p>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <md-input-container flex>
+                            <label>От</label>
+                            <input ng-model="start_price">
+                        </md-input-container>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <md-input-container flex>
+                            <label>До</label>
+                            <input ng-model="end_price">
+                        </md-input-container>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12" style="padding:0 10px;">
+
+                <md-button class="md-raised md-warn" ng-click="getSearch()">Найти</md-button>
+
+                <p style="padding-top:10px;">
+                    <a href="#collapseMoreParam" data-toggle="collapse" href="#collapsePhone" aria-expanded="false"
+                       aria-controls="collapseMoreParam" style="text-decoration:none;"><span class="caret"></span>
+                        <span style="border-bottom: 1px dashed;">Больше параметров</span></a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="collapseMoreParam" style="background-color:#E6E6E6;">ccccccccccccc</div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <h3>Найдено объявлений в Запорожье </h3>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6" style="margin-top:15px;">
+            <form id="formSort" method="GET" action="#">
+                <h5 style="float:left;">Сортировать</h5>
+
+                <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12" style="padding:0 5px;">
+
+                    <select class="form-control" name="sortForm" id="sortForm" style="padding:0;">
+                        <option value="">Выберете...</option>
+                        <option value="date">по дате</option>
+                        <option value="price_up">по возрастанию цены</option>
+                        <option value="price_down">по убыванию цены</option>
+                    </select>
+                </div>
+                <h5 style="float:left;">Отображать</h5>
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding:0 5px;">
+                    <select class="form-control" id="sortFormDate" name="sortFormDate" style="padding:0;">
+                        <option value="">Выберете...</option>
+                        <option value="all_time">за все время</option>
+                        <option value="three_days">за 3 дня</option>
+                        <option value="week">за неделю</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-lg-6 col-md-6 col-sm-5 hidden-xs">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d21423.493081801666!2d35.13475563764171!3d47.84082090160826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sua!4v1435499698464"
+                width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+    <div class="text-center col-lg-6 col-md-6 col-sm-7 col-xs-12">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <md-list>
+                    <md-subheader class="md-no-sticky">3 line item</md-subheader>
+
+                    <md-list-item ng-repeat="property in property" ng-click="doSecondaryAction($event)" ui-sref="home">
+                        <img ng-src="/static/images/header-logo.png" class="md-avatar" alt=""/>
+
+                        <p>[[ property.description ]]</p>
+                        <md-icon md-svg-icon="/static/images/icons/detail.svg" ng-click="showConfirm($event)"
+                                 aria-label="Open Chat" class="md-secondary md-hue-3"
+                                 ng-class="{'md-primary': person.newMessage}"></md-icon>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                </md-list>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- footer -->
+<div class="row">
+
+    <div class="col-lg-6  col-md-6 col-sm-6 col-xs-6">
+        <h2>Продажа жилья в Запорожье </h2>
+
+        <p>Рынок недвижимости Запорожья отличается высокой активностью, что неудивительно, учитывая огромный
+            экономический потенциал города. Портал mesto.ua предоставляет своим посетителям огромный выбор жилья в
+            Запорожье – от недорогих комнат до элитных особняков. Возможность напрямую связаться с собственником
+            недвижимости, подробные сведения о каждом объекте и фотографии позволяют вам купить квартиру в Запорожье
+            быстро и максимально выгодно.</p>
+
+        <p>Просто задайте параметры поиска – по виду недвижимости, количеству комнат и цене – и на экране компьютера вы
+            увидите только те квартиры в Запорожье, которые подходят вам больше всего. На нашем сайте представлены
+            квартиры, расположенные в любом районе города: Жовтневом, Заводском, Ленинском, Коммунарском, Хортицком,
+            Орджоникидзевском или Шевченковском. Выбирайте для себя максимально удобное место проживания, близкое к
+            месту работы, поликлинике, детскому саду или школе.</p>
+
+        <p>Продажа квартир в Запорожье с порталом mesto.ua – уникальная возможность быстро и легко найти потенциального
+            покупателя. Вы сможете убедиться в этом самостоятельно, посетив наш ресурс!</p>
+
+
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-top:25px;">
+
+        <strong>Продажа квартир по количеству комнат »</strong>
+        <br> На вторичном рынке однокомнатная квартира в Запорожье
+        <br> Купить двухкомнатное жилье в Запорожье
+        <br> На вторичном рынке трехкомнатная квартира в Запорожье
+        <br> Продать четырехкомнатную квартиру в Запорожье
+        <br> Покупка пятикомнатной квартиры в Запорожье
+        <br>
+
+        <strong>Популярные объявления Запорожья »</strong>
+        <br> На вторичном рынке комната в Запорожье
+        <br> Купить недвижимость в Запорожье
+        <br> На вторичном рынке дом в Запорожье
+        <br>
+
+        <strong>Продажа квартир по районам Запорожья »</strong>
+        <br> Продажа жилья без посредников в 16-й микрорайоне
+        <br> Покупка квартиры в 2-й Шевченковский микрорайон
+        <br> Продать квартиру в Бородинском
+        <br>
+
+
+    </div>
+
+</div>

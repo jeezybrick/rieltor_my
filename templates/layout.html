@@ -3,26 +3,44 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 
 <head>
+
+    <!-- Angular HTML5 mode -->
+    <base href="/" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Kvartirki</title>
     <link rel="shortcut icon" href="">
+
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/style.css">
 
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-    <style>
-        body {
-            padding-top: 50px;
-        }
-    </style>
+    <!-- Angular motion for animations -->
+    <link rel="stylesheet" href="//rawgithub.com/mgcrea/angular-motion/master/dist/angular-motion.min.css">
+
+    <!-- Angular material -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.11.4/angular-material.min.css">
+
+    <!-- Custom css -->
+    <link rel="stylesheet" href="{% static 'css/minified/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/minified/media.css' %}">
+
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'css/minified/animate.css' %}">
+
+    <!-- angular flash for flash messages -->
+    <link rel="stylesheet" href="{% static 'css/minified/angular-flash.css' %}">
+
+    <!-- angular-calendar -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css">
 
     <!--[if IE]>
         <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -31,130 +49,97 @@
 </head>
 
 <body style="background-color:#F5F5F7;padding-top:0;">
-    <div class="container">
+<div class="container">
 
-        <div class="header hidden-xs" style="margin-top:20px;margin-bottom:35px;">
-            <div class="row">
-                <div class="head_logo col-lg-9 col-md-8 col-sm-7 hidden-xs" style="padding-left:0;">
-                    <a href="/"><img src="{% static 'images/header-logo.png' %}" alt="">
-                    </a>
-                </div>
-                <div class="right_header col-lg-3 col-md-4 col-sm-5 hidden-xs text-right" style="padding-top:45px;">
-
-                    {% if not user.is_authenticated %}
-
-                        <button class="btn btn-primary btn-lg" style="background:#686666;" data-toggle="modal" data-target="#myModal">
-                            <i class="fa fa-user fa-fw"></i> Вход <i class="fa fa-caret-down"></i>
-                        </button>
-
-                    {% else %}
-
-                        <i class="fa fa-user fa-2x"></i>
-                        <span class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <span style="margin-left:5px;">{{ user.email }}</span><span class="caret" style="margin-right:10px;"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/user">Мой профиль</a>
-                                </li>
-                                <li><a href="/user/announcements">Мои обьявления</a>
-                                </li>
-                                <li class="active"><a href="/auth/logout">Выйти</a>
-                                </li>
-                            </ul>
-                        </span>
-                        <i class="fa fa-envelope-o fa-2x"></i>
-                        <i class="fa fa-cog fa-2x"></i>
-
-                    {%  endif %}
-                </div>
+    <div class="header hidden-xs" style="margin-top:20px;margin-bottom:35px;">
+        <div class="row">
+            <div class="head_logo col-lg-3 col-md-8 col-sm-7 hidden-xs" style="padding-left:0;">
+                <a ui-sref="home"><img src="{% static 'images/header-logo.png' %}" alt="">
+                </a>
+            </div>
+            <div class="right_header col-lg-9 col-md-4 col-sm-5 hidden-xs text-right" style="padding-top:25px;" ng-controller="HomeController">
+                {% include 'partials/nav.html' %}
             </div>
         </div>
+    </div>
 
-        <div>
+</div>
 
-            <!-- Navbar -->
-            {% include 'partials/nav.html' %}
+<div class="container">
 
-        </div>
-        
-        </div>
+    <div ui-view></div>
 
-    <div class="container">
-
-        {% block content %}
-            {# Контент #}
-        {% endblock %}
 
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:25px;">
-                <h5>Социальные сети</h5>
-                <a class="pull-left" target="_blank" href="#">
-                    <img alt="" src="http://s.mesto.ua/static/img/icon-facebook.png">
-                </a>
-                <a class="pull-left" target="_blank" href="#">
-                    <img alt="" src="http://s.mesto.ua/static/img/icon-vkontakte.png">
-                </a>
-                <a class="pull-left" target="_blank" href="#">
-                    <img alt="" src="http://s.mesto.ua/static/img/icon-twitter.png">
-                </a>
-                <a class="pull-left" target="_blank" href="#">
-                    <img alt="" src="http://s.mesto.ua/static/img/icon-google.png">
-                </a>
-       </div>
-    
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center" style="margin-top:20px;padding:20px;border-top: 1px dotted #9cafc4;">
-        Copyright © Стаценко А.С. 2015. All Rights Reserved.
-        <h4><a href="/guestbook">Оставить отзыв</a></h4>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:25px;">
+            <h5>Социальные сети</h5>
+            <a class="pull-left" target="_blank" href="#">
+                <img alt="" src="http://s.mesto.ua/static/img/icon-facebook.png">
+            </a>
+            <a class="pull-left" target="_blank" href="#">
+                <img alt="" src="http://s.mesto.ua/static/img/icon-vkontakte.png">
+            </a>
+            <a class="pull-left" target="_blank" href="#">
+                <img alt="" src="http://s.mesto.ua/static/img/icon-twitter.png">
+            </a>
+            <a class="pull-left" target="_blank" href="#">
+                <img alt="" src="http://s.mesto.ua/static/img/icon-google.png">
+            </a>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center"
+             style="margin-top:20px;padding:20px;border-top: 1px dotted #9cafc4;">
+            Copyright © Стаценко А.С. 2015. All Rights Reserved.
+            <h4><a href="/guestbook">Оставить отзыв</a></h4>
         </div>
     </div>
-    </div>
-     
-    @include('modals.new')
+</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-     <!--Vue.js-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.12.5/vue.min.js"></script>
-    <script src="https://raw.githubusercontent.com/vuejs/vue-resource/master/dist/vue-resource.js"></script>
-    <script src="/js/guestbook.js"></script>
+<!-- Jquery and bootstrap -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <script src="/js/my.js"></script>
-    
-    
-<script>
-$(document).ready(function(){
-    $("#buttonSearch").click(function(){
-        $(this).button('loading');
-    });   
-});
-</script>
+<!-- Angular -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular-resource.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.10/angular-route.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-animate.js"></script>
+<script src="{% static 'js/angular-flash.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.3/angular-strap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.3/angular-strap.tpl.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular-aria.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-sanitize.min.js"></script>
 
-  
+<!-- Angular Material Javascript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.11.4/angular-material.min.js"></script>
 
-    <script>
-//Функция для очистки пустых значений в строке браузера(jquery)
- $( "#formSearch,#formSort" ).on( "submit", function( event ) {
-      event.preventDefault();
-      var url = $( this ).serialize();
-      var array = url.split('&');
-      var resultArray = [];
-      for(i in array){
-        console.log(array[i].split('='));
-        if(array[i].split('=')[1]){
-           resultArray.push(array[i]);
-        }
-      }
-      var url_params = resultArray.join('&');
-      var yourURL = "gggg/announcement/search" + "?" + url_params;
-      // do your get...
-     // alert("location.href to " + yourURL);
-      location.href = yourURL;
-    });
+<!-- angular-loading-bar  -->
+<script src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.7.1/loading-bar.min.js'></script>
 
-</script>
-    
+<!-- angular-filter -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.7/angular-filter.min.js'></script>
+
+<!-- angular-messages -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular-messages.min.js'></script>
+
+<!-- Moment.js -->
+<script src="{% static 'js/moment.js' %}"></script>
+
+<!-- Custom js -->
+<script src="{% static 'js/app.js' %}"></script>
+
+<script src="{% static 'js/services.js' %}"></script>
+<script src="{% static 'js/controllers.js' %}"></script>
+<script src="{% static 'js/common.js' %}"></script>
+
+<!-- ui bootstrap -->
+<script src="{% static 'js/ui-bootstrap.min.js' %}"></script>
+
+<!-- angular-calendar -->
+<script src="{% static 'js/calendar.js' %}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js"></script>
+
 </body>
 
 </html>
